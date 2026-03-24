@@ -746,6 +746,13 @@
     };
 
     const validateEmail = (value) => /[^\s@]+@[^\s@]+\.[^\s@]+/.test(value.trim());
+    const buildHubUrl = () => {
+      const payload = Object.fromEntries(
+        Object.entries(state).filter(([, value]) => typeof value === 'string' && value.trim().length > 0)
+      );
+      const query = new URLSearchParams(payload).toString();
+      return query ? `/hub/index.html?${query}` : '/hub/index.html';
+    };
 
     const updateProgress = () => {
       const activeGroup = Number(panels[currentStep].dataset.group || 0);
@@ -816,8 +823,9 @@
         if (button.disabled) return;
         if (button.id === 'submitBtn') {
           console.log('Seamless application payload', state);
-          button.textContent = 'Request Sent';
+          button.textContent = 'Opening your hub...';
           button.disabled = true;
+          window.location.href = buildHubUrl();
           return;
         }
         goNext();
