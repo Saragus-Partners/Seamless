@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,11 +58,17 @@
     }
 
     .hero {
+      display: block;
+      margin-bottom: 18px;
+      width: 100%;
+    }
+
+    .hub-grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 24px;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 18px;
       align-items: start;
-      margin-bottom: 24px;
+      width: 100%;
     }
 
     .panel {
@@ -71,7 +76,7 @@
       border: 1px solid rgba(45,42,38,0.08);
       box-shadow: 0 18px 36px rgba(45,42,38,0.05);
       border-radius: 24px;
-      padding: 22px;
+      padding: 18px;
     }
 
     h1, h2 {
@@ -93,18 +98,44 @@
       max-width: 56ch;
     }
 
+    .support-cta {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(45,42,38,0.08);
+      background: rgba(255,255,255,0.88);
+      color: #2d2a26;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .support-cta strong {
+      color: #d88f6a;
+    }
+
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 22px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .summary-grid::-webkit-scrollbar { height: 6px; }
+    .summary-grid::-webkit-scrollbar-thumb {
+      background: rgba(45,42,38,0.12);
+      border-radius: 999px;
     }
 
     .summary-card {
-      padding: 16px;
-      border-radius: 18px;
+      padding: 14px;
+      border-radius: 16px;
       background: rgba(255,255,255,0.7);
       border: 1px solid rgba(45,42,38,0.06);
+      position: relative;
     }
 
     .summary-label {
@@ -116,7 +147,8 @@
       margin-bottom: 8px;
     }
 
-    .summary-value {
+    .summary-value,
+    .summary-input {
       color: #2d2a26;
       font-size: 16px;
       font-weight: 600;
@@ -124,98 +156,245 @@
       word-break: break-word;
     }
 
+    .summary-input {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(45,42,38,0.08);
+      background: rgba(255,250,244,0.92);
+      padding: 10px 12px;
+      outline: none;
+    }
 
-    .profile-chip-row {
+    .summary-input:focus {
+      border-color: rgba(199,118,76,0.22);
+      box-shadow: 0 0 0 4px rgba(216,143,106,0.08);
+    }
+
+    .summary-actions {
+      margin-top: 14px;
       display: flex;
-      flex-wrap: wrap;
       gap: 10px;
-      margin-top: 18px;
+      flex-wrap: wrap;
     }
 
-    .profile-chip {
-      min-height: 34px;
-      padding: 0 12px;
+    .btn,
+    .ghost-btn {
+      min-height: 42px;
+      padding: 0 14px;
       border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      background: rgba(255,255,255,0.72);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn {
+      border: 0;
+      background: linear-gradient(180deg, #d88f6a, #c7764c);
+      color: #fffaf7;
+    }
+
+    .ghost-btn {
       border: 1px solid rgba(45,42,38,0.08);
-      color: #2d2a26;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .profile-item {
-      border-radius: 16px;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(45,42,38,0.06);
-      padding: 14px;
-    }
-
-    .profile-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      color: #7a736b;
-      margin-bottom: 6px;
-    }
-
-    .profile-value {
-      font-size: 15px;
-      font-weight: 600;
+      background: rgba(255,255,255,0.9);
       color: #2d2a26;
     }
 
-    .doc-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .doc-card {
-      background: rgba(255,250,244,0.82);
+    .workspace {
+      background: rgba(255,250,244,0.78);
       border: 1px solid rgba(45,42,38,0.08);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 16px 30px rgba(45,42,38,0.04);
+      box-shadow: 0 18px 36px rgba(45,42,38,0.05);
+      border-radius: 24px;
+      overflow: hidden;
     }
 
-    .doc-top {
+    .workspace-head {
       display: flex;
-      align-items: start;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 16px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(45,42,38,0.08);
+      background: rgba(255,255,255,0.42);
     }
 
-    .doc-title {
-      font-size: 20px;
+    .workspace-title {
       font-family: Georgia, 'Times New Roman', serif;
+      font-size: 22px;
       color: #2d2a26;
       line-height: 1.05;
     }
 
-    .doc-copy {
+    .workspace-copy {
+      color: #6b655d;
+      font-size: 13px;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+      will-change: opacity, transform;
+    }
+
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in.delay-1 { transition-delay: 0.08s; }
+    .fade-in.delay-2 { transition-delay: 0.16s; }
+    .fade-in.delay-3 { transition-delay: 0.24s; }
+
+    .workspace-body {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 420px;
+      align-items: start;
+    }
+
+    .drive-sidebar {
+      border-right: 1px solid rgba(45,42,38,0.08);
+      background: rgba(255,255,255,0.32);
+      padding: 12px;
+    }
+
+    .drive-nav {
+      display: grid;
+      gap: 10px;
+    }
+
+    .drive-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 0 12px;
+      border-radius: 12px;
       color: #6b655d;
       font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 16px;
-      min-height: 66px;
+      font-weight: 600;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .drive-nav-item.active {
+      background: rgba(216,143,106,0.12);
+      color: #2d2a26;
+      box-shadow: inset 0 0 0 1px rgba(199,118,76,0.16);
+    }
+
+    .drive-content {
+      padding: 14px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .folder-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 2px 2px 8px;
+    }
+
+    .folder-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b655d;
+    }
+
+    .drive-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-row {
+      display: grid;
+      grid-template-columns: 1.35fr 0.75fr 0.8fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(45,42,38,0.06);
+    }
+
+    .file-row.uploading {
+      background: rgba(216,143,106,0.08);
+    }
+
+    .file-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .file-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(142,166,139,0.16);
+      color: #2d2a26;
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .file-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2d2a26;
+      line-height: 1.35;
+    }
+
+    .file-help {
+      color: #6b655d;
+      font-size: 11px;
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+
+    .file-meta {
+      color: #6b655d;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(45,42,38,0.08);
+      color: #6b655d;
+    }
+
+    .status-chip.done {
+      background: rgba(142,166,139,0.16);
+      color: #2d2a26;
+      border-color: rgba(142,166,139,0.22);
     }
 
     .tooltip-wrap {
       position: relative;
-      flex: 0 0 auto;
+      justify-self: end;
     }
 
     .tip-btn {
@@ -256,71 +435,30 @@
       display: block;
     }
 
-    .upload-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .upload-btn,
-    .secondary-btn {
-      min-height: 42px;
-      padding: 0 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(45,42,38,0.08);
-      background: rgba(255,255,255,0.9);
-      color: #2d2a26;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .upload-btn {
-      background: linear-gradient(180deg, #d88f6a, #c7764c);
-      color: #fffaf7;
-      border: 0;
-    }
-
-    .file-note {
-      font-size: 12px;
-      color: #6b655d;
-    }
-
-    .side-stack {
+    .support-card {
       display: grid;
-      gap: 16px;
-    }
-
-    .checklist {
-      display: grid;
-      gap: 10px;
-    }
-
-    .check {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #2d2a26;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .check-mark {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: rgba(142,166,139,0.18);
-      color: #8ea68b;
-      font-size: 13px;
+      gap: 12px;
     }
 
     .callout {
       color: #6b655d;
       font-size: 14px;
       line-height: 1.6;
+    }
+
+    .phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(45,42,38,0.08);
+      color: #2d2a26;
+      font-size: 14px;
+      font-weight: 700;
+      width: fit-content;
     }
 
     .footer {
@@ -335,105 +473,46 @@
       font-size: 14px;
     }
 
-
-
-    .upload-dialog {
-      width: min(540px, calc(100% - 28px));
-      border: 0;
-      border-radius: 20px;
-      padding: 0;
-      box-shadow: 0 26px 56px rgba(45,42,38,0.26);
-      background: transparent;
-    }
-
-    .upload-dialog::backdrop {
-      background: rgba(45,42,38,0.42);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-    }
-
-    .dialog-shell {
-      border-radius: 20px;
-      padding: 20px;
-      background: #fffaf4;
-      border: 1px solid rgba(45,42,38,0.1);
-    }
-
-    .dialog-title {
-      margin: 0 0 6px;
-      font-size: 28px;
-      font-family: Georgia, 'Times New Roman', serif;
-      letter-spacing: -0.03em;
-    }
-
-    .dialog-copy {
-      margin: 0;
-      color: #6b655d;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .dialog-field {
-      margin-top: 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(45,42,38,0.1);
-      padding: 12px;
-      background: rgba(255,255,255,0.76);
-    }
-
-    .dialog-field label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #6b655d;
-      margin-bottom: 8px;
-    }
-
-    .dialog-field input[type="file"] {
-      width: 100%;
-      color: #2d2a26;
-      font-size: 13px;
-    }
-
-    .dialog-field textarea {
-      width: 100%;
-      min-height: 92px;
-      border-radius: 10px;
-      border: 1px solid rgba(45,42,38,0.12);
-      padding: 10px;
-      background: #fff;
-      resize: vertical;
-    }
-
-    .dialog-actions {
-      margin-top: 18px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    @media (max-width: 920px) {
-      .hero,
-      .doc-grid {
+    @media (max-width: 980px) {
+      .workspace-body,
+      .hub-grid {
         grid-template-columns: 1fr;
       }
 
       .summary-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
 
-      .profile-grid {
+      .drive-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid rgba(45,42,38,0.08);
+      }
+
+      .drive-nav {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .file-row {
         grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .tooltip-wrap {
+        justify-self: start;
       }
     }
 
     @media (max-width: 640px) {
       .shell { width: min(calc(100% - 20px), 1220px); }
       .topbar { flex-direction: column; align-items: flex-start; }
-      .panel { padding: 18px; border-radius: 20px; }
-      .doc-title { font-size: 18px; }
+      .panel,
+      .workspace-head,
+      .drive-content,
+      .drive-sidebar { padding: 14px; }
+      .workspace-title { font-size: 22px; }
+      .drive-nav { grid-template-columns: 1fr 1fr; }
       .tooltip {
         left: 0;
         right: auto;
@@ -445,215 +524,245 @@
 </head>
 <body>
   <div class="shell">
-    <div class="topbar">
+    <div class="topbar fade-in is-visible">
       <a href="#" aria-label="Seamless home">
         <svg xmlns="http://www.w3.org/2000/svg" width="139" height="35" viewBox="0 0 139 35" style="color: #2d2a26;"><g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1"><g transform="translate(0 0)"><path fill="currentColor" d="M51.939 23.156q-1.183 0-2.022-.416a4.8 4.8 0 0 1-1.423-1.053l1.3-1.313q.455.52 1.034.78.578.26 1.241.26.728 0 1.079-.299a.99.99 0 0 0 .351-.793q0-.247-.085-.448a.73.73 0 0 0-.312-.338q-.227-.137-.656-.189l-.897-.117q-.95-.13-1.566-.474a2.23 2.23 0 0 1-.917-.91q-.3-.566-.299-1.32 0-.819.41-1.437.41-.617 1.17-.968t1.826-.351q1.027 0 1.807.332.78.33 1.339.942l-1.313 1.326a2.6 2.6 0 0 0-.787-.618q-.46-.24-1.163-.24-.663 0-.988.234a.76.76 0 0 0-.325.65q0 .312.11.507t.352.299.617.169l.897.143q.936.143 1.547.481t.91.884.299 1.326q0 .87-.41 1.534-.409.663-1.202 1.04t-1.924.377"/><path fill="currentColor" d="M66.888 23h-6.175v-9.074h6.175v1.755h-4.199v1.859h3.601v1.742h-3.601v1.963h4.199z"/><path fill="currentColor" d="M79.848 23h-2.054l-.65-2.158h-3.029L73.465 23h-2.002l2.99-9.074h2.444zm-3.185-3.835-.559-1.885-.455-1.56h-.065l-.442 1.56-.559 1.885z"/><path fill="currentColor" d="M84.709 23v-9.074h2.093l1.209 2.314 1.014 1.937h.026l1.001-1.937 1.196-2.314h2.106V23h-1.859v-5.954h-.039l-.663 1.326-1.768 3.211-1.729-3.198-.689-1.43h-.039V23zm19.681 0h-5.434v-9.074h1.976v7.319h3.458zm11.231 0h-6.175v-9.074h6.175v1.755h-4.199v1.859h3.601v1.742h-3.601v1.963h4.199z"/><path fill="currentColor" d="M123.875 23.156q-1.184 0-2.022-.416a4.8 4.8 0 0 1-1.423-1.053l1.3-1.313q.455.52 1.033.78.579.26 1.242.26.728 0 1.079-.299a.99.99 0 0 0 .351-.793q0-.247-.085-.448a.73.73 0 0 0-.311-.338q-.228-.137-.657-.189l-.897-.117q-.95-.13-1.567-.474a2.23 2.23 0 0 1-.916-.91q-.3-.566-.299-1.32 0-.819.41-1.437.408-.617 1.17-.968.76-.351 1.826-.351 1.027 0 1.807.332.78.33 1.339.942l-1.313 1.326a2.6 2.6 0 0 0-.786-.618q-.462-.24-1.164-.24-.663 0-.988.234a.76.76 0 0 0-.325.65q0 .312.11.507t.352.299.617.169l.897.143q.936.143 1.547.481t.91.884.299 1.326q0 .87-.41 1.534-.409.663-1.202 1.04t-1.924.377m11.53 0q-1.183 0-2.022-.416a4.8 4.8 0 0 1-1.423-1.053l1.3-1.313q.455.52 1.034.78.578.26 1.241.26.728 0 1.079-.299a.99.99 0 0 0 .351-.793q0-.247-.084-.448a.73.73 0 0 0-.312-.338q-.228-.137-.657-.189l-.897-.117q-.95-.13-1.566-.474a2.23 2.23 0 0 1-.917-.91q-.3-.566-.299-1.32 0-.819.41-1.437.409-.617 1.17-.968t1.826-.351q1.027 0 1.807.332.78.33 1.339.942l-1.313 1.326a2.6 2.6 0 0 0-.787-.618q-.46-.24-1.163-.24-.663 0-.988.234a.76.76 0 0 0-.325.65q0 .312.11.507t.352.299.617.169l.897.143q.936.143 1.547.481t.91.884q.3.546.299 1.326 0 .87-.41 1.534-.409.663-1.202 1.04t-1.924.377"/><circle cx="17.5" cy="17.5" r="17" fill="#fffaf4" stroke="rgba(45,42,38,0.12)"/><path stroke="#d88f6a" stroke-linecap="square" stroke-width="3" d="M17.5 23.5v-12"/><circle cx="17.5" cy="17.5" r="8" stroke="#8ea68b"/></g></g></svg>
       </a>
       <div class="status-pill"><span class="status-dot"></span><span>Financing Hub Ready</span></div>
     </div>
 
-    <section class="hero">
+    <section class="hero fade-in delay-1">
       <div class="panel">
         <h1>Your financing hub</h1>
-        <p class="subcopy">We’ve saved the details you already shared. Review them below, then upload the documents that help move your application forward faster.</p>
-        <div class="profile-chip-row">
-          <span class="profile-chip" id="profileNameChip">Applicant profile</span>
-          <span class="profile-chip" id="profileBusinessChip">Business overview</span>
-          <span class="profile-chip" id="profileFundingChip">Funding request</span>
-        </div>
-        <div class="profile-grid">
-          <div class="profile-item">
-            <div class="profile-label">Primary contact</div>
-            <div class="profile-value" id="profileContact">Not provided yet</div>
-          </div>
-          <div class="profile-item">
-            <div class="profile-label">Business</div>
-            <div class="profile-value" id="profileBusiness">Not provided yet</div>
-          </div>
-          <div class="profile-item">
-            <div class="profile-label">Target funding</div>
-            <div class="profile-value" id="profileFunding">Not provided yet</div>
-          </div>
-          <div class="profile-item">
-            <div class="profile-label">Credit snapshot</div>
-            <div class="profile-value" id="profileCredit">Not provided yet</div>
-          </div>
-        </div>
+        <p class="subcopy">Review and update your details, then continue with document upload.</p>
+        <a class="support-cta" href="tel:+18005551234"><span>Request a support call</span><strong>+1 (800) 555-1234</strong></a>
         <div class="summary-grid" id="summaryGrid"></div>
-      </div>
-
-      <div class="side-stack">
-        <div class="panel">
-          <h2>What happens here</h2>
-          <div class="checklist">
-            <div class="check"><span class="check-mark">✓</span><span>Review your application summary</span></div>
-            <div class="check"><span class="check-mark">✓</span><span>Upload the strongest financial documents you have</span></div>
-            <div class="check"><span class="check-mark">✓</span><span>Use the tooltips to find the right files quickly</span></div>
-          </div>
-        </div>
-        <div class="panel">
-          <h2>Helpful note</h2>
-          <p class="callout">You do not need to have every file ready right away. Start with your most recent bank statements and your latest P&amp;L. Those two usually create the clearest first picture.</p>
+        <div class="summary-actions">
+          <button class="btn" type="button" id="saveProfileBtn">Save updates</button>
+          <button class="ghost-btn" type="button" id="refreshUrlBtn">Refresh URL</button>
         </div>
       </div>
     </section>
 
-    <section class="doc-grid">
-      <article class="doc-card">
-        <div class="doc-top">
+    <section class="hub-grid fade-in delay-2">
+      <div class="workspace">
+        <div class="workspace-head">
           <div>
-            <div class="doc-title">Bank statements</div>
+            <div class="workspace-title">Application files</div>
+            <div class="workspace-copy">Upload the documents required to move forward.</div>
           </div>
-          <div class="tooltip-wrap">
-            <button class="tip-btn" type="button">?</button>
-            <div class="tooltip">
-              <strong>Where to find these</strong>
-              Log in to your bank account, open the business checking account, then look for Statements, Documents, or Account Services. At Chase this is often under “Statements &amp; documents.” At Bank of America look under “Statements &amp; documents” inside the account view. At Wells Fargo it is usually under “Statements &amp; notices.” Download the last 3 to 6 months as PDF.
-            </div>
-          </div>
+          <button class="btn" type="button" id="uploadAllBtn">Upload files</button>
         </div>
-        <div class="doc-copy">Upload recent business bank statements. The most useful version is a PDF export directly from your bank.</div>
-        <div class="upload-row">
-          <button class="upload-btn" type="button" data-open-upload="bank-statements">Upload files</button>
-          <button class="secondary-btn" type="button">Skip for now</button>
-          <span class="file-note">Last 3 to 6 months preferred</span>
-        </div>
-      </article>
 
-      <article class="doc-card">
-        <div class="doc-top">
-          <div>
-            <div class="doc-title">Profit &amp; loss statement</div>
-          </div>
-          <div class="tooltip-wrap">
-            <button class="tip-btn" type="button">?</button>
-            <div class="tooltip">
-              <strong>Where to find this</strong>
-              In QuickBooks, go to Reports and search for Profit and Loss. In Xero, open Accounting, then Reports, then Profit and Loss. Export the most recent year-to-date view as PDF or Excel.
+        <div class="workspace-body">
+          <aside class="drive-sidebar">
+            <div class="drive-nav">
+              <button class="drive-nav-item active" type="button" data-filter="all">All files</button>
+              <button class="drive-nav-item" type="button" data-filter="statements">Statements</button>
+              <button class="drive-nav-item" type="button" data-filter="financials">Financials</button>
+              <button class="drive-nav-item" type="button" data-filter="support">Supporting docs</button>
             </div>
-          </div>
-        </div>
-        <div class="doc-copy">Upload your latest P&amp;L so the operating picture is easier to understand.</div>
-        <div class="upload-row">
-          <button class="upload-btn" type="button" data-open-upload="profit-loss">Upload files</button>
-          <button class="secondary-btn" type="button">Skip for now</button>
-          <span class="file-note">Year-to-date is ideal</span>
-        </div>
-      </article>
+          </aside>
 
-      <article class="doc-card">
-        <div class="doc-top">
-          <div>
-            <div class="doc-title">Balance sheet</div>
-          </div>
-          <div class="tooltip-wrap">
-            <button class="tip-btn" type="button">?</button>
-            <div class="tooltip">
-              <strong>Where to find this</strong>
-              In QuickBooks or Xero, search reports for Balance Sheet. Export the most recent month-end version. If your accountant prepared one manually, that version works too.
+          <div class="drive-content">
+            <div class="folder-toolbar">
+              <div class="folder-label">Required documents</div>
+              <div class="file-meta">Ready for upload</div>
             </div>
-          </div>
-        </div>
-        <div class="doc-copy">Upload a current balance sheet if you have one available.</div>
-        <div class="upload-row">
-          <button class="upload-btn" type="button" data-open-upload="balance-sheet">Upload files</button>
-          <button class="secondary-btn" type="button">Skip for now</button>
-          <span class="file-note">Optional but helpful</span>
-        </div>
-      </article>
 
-      <article class="doc-card">
-        <div class="doc-top">
-          <div>
-            <div class="doc-title">Additional supporting files</div>
-          </div>
-          <div class="tooltip-wrap">
-            <button class="tip-btn" type="button">?</button>
-            <div class="tooltip">
-              <strong>What can go here</strong>
-              Recent tax returns, merchant statements, AR aging reports, equipment quotes, contracts, or anything that explains why you need capital and how the business performs.
+            <div class="drive-list">
+              <div class="file-row" data-doc="bank_statements" data-category="statements">
+                <div class="file-main">
+                  <div class="file-icon">◫</div>
+                  <div>
+                    <div class="file-name">Bank statements</div>
+                    <div class="file-help">Recent business checking statements in PDF. Last 3 to 6 months.</div>
+                  </div>
+                </div>
+                <div class="file-meta" data-filename="bank_statements">No file yet</div>
+                <div><span class="status-chip" data-status="bank_statements">Needed</span></div>
+                <div class="tooltip-wrap">
+                  <button class="tip-btn" type="button">?</button>
+                  <div class="tooltip"><strong>Where to find</strong>In your bank account under Statements or Documents. Download the last 3 to 6 months as PDF.</div>
+                </div>
+                <input type="file" hidden data-input="bank_statements" multiple>
+              </div>
+
+              <div class="file-row" data-doc="pnl_statement" data-category="financials">
+                <div class="file-main">
+                  <div class="file-icon">▤</div>
+                  <div>
+                    <div class="file-name">Profit &amp; loss</div>
+                    <div class="file-help">Year-to-date P&amp;L from your accounting system.</div>
+                  </div>
+                </div>
+                <div class="file-meta" data-filename="pnl_statement">No file yet</div>
+                <div><span class="status-chip" data-status="pnl_statement">Recommended</span></div>
+                <div class="tooltip-wrap">
+                  <button class="tip-btn" type="button">?</button>
+                  <div class="tooltip"><strong>Where to find</strong>QuickBooks or Xero → Reports → Profit &amp; Loss.</div>
+                </div>
+                <input type="file" hidden data-input="pnl_statement" multiple>
+              </div>
+
+              <div class="file-row" data-doc="balance_sheet" data-category="financials">
+                <div class="file-main">
+                  <div class="file-icon">□</div>
+                  <div>
+                    <div class="file-name">Balance sheet</div>
+                    <div class="file-help">Most recent balance sheet if available.</div>
+                  </div>
+                </div>
+                <div class="file-meta" data-filename="balance_sheet">No file yet</div>
+                <div><span class="status-chip" data-status="balance_sheet">Optional</span></div>
+                <div class="tooltip-wrap">
+                  <button class="tip-btn" type="button">?</button>
+                  <div class="tooltip"><strong>Where to find</strong>Accounting system → Balance Sheet report.</div>
+                </div>
+                <input type="file" hidden data-input="balance_sheet" multiple>
+              </div>
+
+              <div class="file-row" data-doc="supporting_docs" data-category="support">
+                <div class="file-main">
+                  <div class="file-icon">⟲</div>
+                  <div>
+                    <div class="file-name">Supporting documents</div>
+                    <div class="file-help">Anything that helps explain performance or need for capital.</div>
+                  </div>
+                </div>
+                <div class="file-meta" data-filename="supporting_docs">No file yet</div>
+                <div><span class="status-chip" data-status="supporting_docs">Optional</span></div>
+                <div class="tooltip-wrap">
+                  <button class="tip-btn" type="button">?</button>
+                  <div class="tooltip"><strong>Examples</strong>Tax returns, AR aging, contracts, equipment quotes.</div>
+                </div>
+                <input type="file" hidden data-input="supporting_docs" multiple>
+              </div>
             </div>
           </div>
         </div>
-        <div class="doc-copy">Add anything else that gives useful context to the application.</div>
-        <div class="upload-row">
-          <button class="upload-btn" type="button" data-open-upload="supporting-files">Upload files</button>
-          <button class="secondary-btn" type="button">Skip for now</button>
-          <span class="file-note">Only if relevant</span>
-        </div>
-      </article>
+      </div>
+
+      <div class="panel support-card">
+        <h2>Need help?</h2>
+        <p class="callout">Speak with a specialist and get guidance on your application.</p>
+        <a class="phone-link" href="tel:+18005551234">Request a support call · +1 (800) 555-1234</a>
+        <a class="phone-link" href="tel:+18005551234">Talk to an agent · +1 (800) 555-1234</a>
+      </div>
     </section>
 
-    <div class="footer">
+    <div class="footer fade-in delay-3">
       <div>© 2026 Seamless Capital. All rights reserved.</div>
       <div>Questions? Reach out to your Seamless contact.</div>
     </div>
   </div>
 
-
-  <dialog class="upload-dialog" id="uploadDialog" aria-labelledby="uploadDialogTitle">
-    <form method="dialog" class="dialog-shell">
-      <h3 class="dialog-title" id="uploadDialogTitle">Upload file</h3>
-      <p class="dialog-copy" id="uploadDialogCopy">Choose documents for your application packet.</p>
-      <div class="dialog-field">
-        <label for="uploadInput">Select files</label>
-        <input id="uploadInput" type="file" multiple />
-      </div>
-      <div class="dialog-field">
-        <label for="uploadNotes">Notes (optional)</label>
-        <textarea id="uploadNotes" placeholder="Add any context for your reviewer."></textarea>
-      </div>
-      <div class="dialog-actions">
-        <button class="secondary-btn" value="cancel">Cancel</button>
-        <button class="upload-btn" value="close">Add to application</button>
-      </div>
-    </form>
-  </dialog>
-
   <script>
     const params = new URLSearchParams(window.location.search);
-    const fields = [
-      ['Business age', params.get('business_age')],
-      ['Entity type', params.get('entity_type')],
-      ['Funding range', params.get('funding_amount')],
-      ['Funding use', params.get('funding_reason')],
-      ['Annual revenue', params.get('annual_revenue')],
-      ['Credit', params.get('credit_score')],
-      ['Industry', params.get('industry')],
-      ['ZIP code', params.get('zip_code')],
-      ['Business name', params.get('business_name')],
-      ['First name', params.get('first_name')],
-      ['Last name', params.get('last_name')],
-      ['Email', params.get('email')]
-    ].filter(([, value]) => value && value.trim());
+    const fieldMap = [
+      ['business_age', 'Business age'],
+      ['entity_type', 'Entity type'],
+      ['funding_amount', 'Funding range'],
+      ['funding_reason', 'Funding use'],
+      ['annual_revenue', 'Annual revenue'],
+      ['credit_score', 'Credit'],
+      ['industry', 'Industry'],
+      ['zip_code', 'ZIP code'],
+      ['business_name', 'Business name'],
+      ['first_name', 'First name'],
+      ['last_name', 'Last name'],
+      ['email', 'Email']
+    ];
+
+    const state = {};
+    fieldMap.forEach(([key]) => {
+      const value = params.get(key);
+      if (value) state[key] = value;
+    });
 
     const summaryGrid = document.getElementById('summaryGrid');
-    const fullName = [params.get('first_name'), params.get('last_name')].filter(Boolean).join(' ').trim();
-    const businessName = params.get('business_name');
-    const fundingRange = params.get('funding_amount');
-    const creditScore = params.get('credit_score');
-    const email = params.get('email');
-
-    document.getElementById('profileContact').textContent = fullName || email || 'Not provided yet';
-    document.getElementById('profileBusiness').textContent = businessName || 'Not provided yet';
-    document.getElementById('profileFunding').textContent = fundingRange || 'Not provided yet';
-    document.getElementById('profileCredit').textContent = creditScore || 'Not provided yet';
-    document.getElementById('profileNameChip').textContent = fullName ? `Applicant: ${fullName}` : 'Applicant profile';
-    document.getElementById('profileBusinessChip').textContent = businessName ? `Business: ${businessName}` : 'Business overview';
-    document.getElementById('profileFundingChip').textContent = fundingRange ? `Funding: ${fundingRange}` : 'Funding request';
-    if (fields.length) {
-      fields.forEach(([label, value]) => {
+    const renderSummary = () => {
+      summaryGrid.innerHTML = '';
+      fieldMap.forEach(([key, label]) => {
         const card = document.createElement('div');
         card.className = 'summary-card';
-        card.innerHTML = `<div class="summary-label">${label}</div><div class="summary-value">${value}</div>`;
+
+        const fieldLabel = document.createElement('div');
+        fieldLabel.className = 'summary-label';
+        fieldLabel.textContent = label;
+
+        const input = document.createElement('input');
+        input.className = 'summary-input';
+        input.dataset.field = key;
+        input.value = state[key] || '';
+        input.placeholder = `Add ${label.toLowerCase()}`;
+
+        card.appendChild(fieldLabel);
+        card.appendChild(input);
         summaryGrid.appendChild(card);
       });
-    } else {
-      summaryGrid.innerHTML = `<div class="summary-card"><div class="summary-label">Application</div><div class="summary-value">Your summary will appear here once the form passes data into this page.</div></div>`;
-    }
+
+      summaryGrid.querySelectorAll('.summary-input').forEach((input) => {
+        input.addEventListener('input', (event) => {
+          state[event.target.dataset.field] = event.target.value.trim();
+        });
+      });
+    };
+
+    renderSummary();
+
+    const writeStateToUrl = () => {
+      const next = new URL(window.location.href);
+      next.search = '';
+      Object.entries(state).forEach(([key, value]) => {
+        if (value) next.searchParams.set(key, value);
+      });
+      window.history.replaceState({}, '', next.toString());
+    };
+
+    document.getElementById('saveProfileBtn').addEventListener('click', () => {
+      writeStateToUrl();
+      alert('Profile updates saved.');
+    });
+
+    document.getElementById('refreshUrlBtn').addEventListener('click', () => {
+      writeStateToUrl();
+      alert('Profile updated.');
+    });
+
+    const triggerInput = (key) => {
+      const input = document.querySelector(`[data-input="${key}"]`);
+      if (input) input.click();
+    };
+
+    document.getElementById('uploadAllBtn').addEventListener('click', () => triggerInput('bank_statements'));
+
+    document.querySelectorAll('.file-row').forEach((row) => {
+      row.addEventListener('click', (event) => {
+        if (event.target.closest('.tooltip-wrap')) return;
+        const key = row.dataset.doc;
+        triggerInput(key);
+      });
+    });
+
+    document.querySelectorAll('input[type="file"]').forEach((input) => {
+      input.addEventListener('change', () => {
+        const key = input.dataset.input;
+        const fileRow = document.querySelector(`[data-doc="${key}"]`);
+        const fileMeta = document.querySelector(`[data-filename="${key}"]`);
+        const status = document.querySelector(`[data-status="${key}"]`);
+        if (!input.files.length) return;
+        const names = Array.from(input.files).map((file) => file.name).join(', ');
+        fileRow.classList.add('uploading');
+        fileMeta.textContent = names;
+        status.textContent = 'Uploaded';
+        status.classList.add('done');
+      });
+    });
 
     document.querySelectorAll('.tip-btn').forEach((btn) => {
       btn.addEventListener('click', (event) => {
+        event.stopPropagation();
         const wrap = event.currentTarget.closest('.tooltip-wrap');
         const isOpen = wrap.classList.contains('open');
         document.querySelectorAll('.tooltip-wrap').forEach((node) => node.classList.remove('open'));
@@ -667,37 +776,43 @@
       }
     });
 
+    // filtering logic
+    const navItems = document.querySelectorAll('.drive-nav-item');
+    const rows = document.querySelectorAll('.file-row');
 
-    const uploadDialog = document.getElementById('uploadDialog');
-    const uploadDialogTitle = document.getElementById('uploadDialogTitle');
-    const uploadDialogCopy = document.getElementById('uploadDialogCopy');
-    const uploadConfig = {
-      'bank-statements': {
-        title: 'Bank statements',
-        copy: 'Add your recent statements to strengthen cash flow visibility.'
-      },
-      'profit-loss': {
-        title: 'Profit & loss statement',
-        copy: 'Attach your latest P&L report for the underwriting snapshot.'
-      },
-      'balance-sheet': {
-        title: 'Balance sheet',
-        copy: 'Attach your latest balance sheet export if available.'
-      },
-      'supporting-files': {
-        title: 'Supporting files',
-        copy: 'Add contracts, invoices, tax returns, or any additional context.'
-      }
-    };
+    navItems.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        navItems.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
 
-    document.querySelectorAll('[data-open-upload]').forEach((button) => {
-      button.addEventListener('click', () => {
-        const key = button.dataset.openUpload;
-        const config = uploadConfig[key] || { title: 'Upload files', copy: 'Attach files to your application.' };
-        uploadDialogTitle.textContent = config.title;
-        uploadDialogCopy.textContent = config.copy;
-        uploadDialog.showModal();
+        const filter = btn.dataset.filter;
+
+        rows.forEach((row) => {
+          if (filter === 'all') {
+            row.style.display = '';
+          } else {
+            row.style.display = row.dataset.category === filter ? '' : 'none';
+          }
+        });
       });
+    });
+
+    const animatedBlocks = document.querySelectorAll('.fade-in');
+    const blockObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -8% 0px'
+    });
+
+    animatedBlocks.forEach((block) => {
+      if (!block.classList.contains('is-visible')) {
+        blockObserver.observe(block);
+      }
     });
   </script>
 </body>
