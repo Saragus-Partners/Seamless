@@ -1063,7 +1063,7 @@
             <a href="#offers" class="nav-link mega-trigger" id="offersTrigger" aria-expanded="false" aria-haspopup="true">Offers <span class="mega-caret">⌄</span></a>
             <div class="mega-menu" id="offersMegaMenu">
               <div class="mega-grid">
-                <a href="#offers" class="mega-card">
+                <a href="/start/" class="mega-card">
                   <div class="mega-card-top">
                     <div class="mega-icon">⏱</div>
                     <div class="mega-copy">
@@ -1075,7 +1075,7 @@
                     <span class="fast-apply">Fast Apply</span>
                   </div>
                 </a>
-                <a href="#offers" class="mega-card">
+                <a href="/start/" class="mega-card">
                   <div class="mega-card-top">
                     <div class="mega-icon">☀</div>
                     <div class="mega-copy">
@@ -1087,7 +1087,7 @@
                     <span class="fast-apply">Fast Apply</span>
                   </div>
                 </a>
-                <a href="#offers" class="mega-card">
+                <a href="/start/" class="mega-card">
                   <div class="mega-card-top">
                     <div class="mega-icon">▭</div>
                     <div class="mega-copy">
@@ -1099,7 +1099,7 @@
                     <span class="fast-apply">Fast Apply</span>
                   </div>
                 </a>
-                <a href="#offers" class="mega-card">
+                <a href="/start/" class="mega-card">
                   <div class="mega-card-top">
                     <div class="mega-icon">◫</div>
                     <div class="mega-copy">
@@ -1117,7 +1117,7 @@
           <a href="#about">About Us</a>
           <a href="#process">How It Works</a>
           <a href="#faq">FAQ</a>
-          <a href="#contact" class="cta-btn">Start Your Application <span class="arrow">→</span></a>
+          <a href="/start/" class="cta-btn">Start Your Application <span class="arrow">→</span></a>
         </nav>
       </header>
 
@@ -1128,7 +1128,7 @@
             <p class="lead">
               Seamless helps businesses access capital without unnecessary steps. Answer a few questions to get an offer.
             </p>
-            <a href="#contact" class="cta-btn">Start Your Application <span class="arrow">→</span></a>
+            <a href="/start/" class="cta-btn">Start Your Application <span class="arrow">→</span></a>
           </div>
         </div>
 
@@ -1170,7 +1170,7 @@
           <p class="body-copy">
             Complete our 5 minute questionnaire. We review your revenue, timing, and needs, then present a clear offer with terms you can understand and act on immediately.
           </p>
-          <a href="#contact" class="cta-btn">Start Your Application <span class="arrow">→</span></a>
+          <a href="/start/" class="cta-btn">Start Your Application <span class="arrow">→</span></a>
         </div>
       </section>
 
@@ -1273,7 +1273,7 @@
           <p class="body-copy">
             Start with a simple application. See what fits, and decide how to proceed.
           </p>
-          <a href="mailto:hello@seamless.example" class="cta-btn">Get Started <span class="arrow">→</span></a>
+          <a href="/start/" class="cta-btn">Get Started <span class="arrow">→</span></a>
         </div>
       </section>
 
@@ -1288,7 +1288,7 @@
           <a href="#faq">FAQs</a>
           <a href="#">Privacy Policy</a>
           <a href="#">Terms and Conditions</a>
-          <a href="#contact">Apply</a>
+          <a href="/start/">Apply</a>
         </div>
 
         <div class="footer-bottom">
@@ -1388,6 +1388,27 @@
 
     animatedItems.forEach((item) => observer.observe(item));
 
+    const getCenterScrollPosition = (targetElement) => {
+      const rect = targetElement.getBoundingClientRect();
+      const navHeight = nav.offsetHeight;
+      const extraOffset = 20;
+      return window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2) - (navHeight / 2) - extraOffset;
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const targetId = link.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (!targetElement) return;
+
+        event.preventDefault();
+        const targetY = Math.max(0, getCenterScrollPosition(targetElement));
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      });
+    });
+
     const heroSection = document.getElementById('about');
     const processSection = document.getElementById('process');
     let firstSnapUsed = false;
@@ -1404,8 +1425,7 @@
       snapLock = true;
       firstSnapUsed = true;
 
-      const rect = processSection.getBoundingClientRect();
-      const targetY = window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2) - 10;
+      const targetY = Math.max(0, getCenterScrollPosition(processSection));
 
       window.scrollTo({ top: targetY, behavior: 'smooth' });
 
