@@ -124,6 +124,57 @@
       word-break: break-word;
     }
 
+
+    .profile-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .profile-chip {
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(45,42,38,0.08);
+      color: #2d2a26;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .profile-item {
+      border-radius: 16px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(45,42,38,0.06);
+      padding: 14px;
+    }
+
+    .profile-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: #7a736b;
+      margin-bottom: 6px;
+    }
+
+    .profile-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2d2a26;
+    }
+
     .doc-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -284,6 +335,85 @@
       font-size: 14px;
     }
 
+
+
+    .upload-dialog {
+      width: min(540px, calc(100% - 28px));
+      border: 0;
+      border-radius: 20px;
+      padding: 0;
+      box-shadow: 0 26px 56px rgba(45,42,38,0.26);
+      background: transparent;
+    }
+
+    .upload-dialog::backdrop {
+      background: rgba(45,42,38,0.42);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    .dialog-shell {
+      border-radius: 20px;
+      padding: 20px;
+      background: #fffaf4;
+      border: 1px solid rgba(45,42,38,0.1);
+    }
+
+    .dialog-title {
+      margin: 0 0 6px;
+      font-size: 28px;
+      font-family: Georgia, 'Times New Roman', serif;
+      letter-spacing: -0.03em;
+    }
+
+    .dialog-copy {
+      margin: 0;
+      color: #6b655d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .dialog-field {
+      margin-top: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(45,42,38,0.1);
+      padding: 12px;
+      background: rgba(255,255,255,0.76);
+    }
+
+    .dialog-field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #6b655d;
+      margin-bottom: 8px;
+    }
+
+    .dialog-field input[type="file"] {
+      width: 100%;
+      color: #2d2a26;
+      font-size: 13px;
+    }
+
+    .dialog-field textarea {
+      width: 100%;
+      min-height: 92px;
+      border-radius: 10px;
+      border: 1px solid rgba(45,42,38,0.12);
+      padding: 10px;
+      background: #fff;
+      resize: vertical;
+    }
+
+    .dialog-actions {
+      margin-top: 18px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
     @media (max-width: 920px) {
       .hero,
       .doc-grid {
@@ -291,6 +421,10 @@
       }
 
       .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -322,6 +456,29 @@
       <div class="panel">
         <h1>Your financing hub</h1>
         <p class="subcopy">We’ve saved the details you already shared. Review them below, then upload the documents that help move your application forward faster.</p>
+        <div class="profile-chip-row">
+          <span class="profile-chip" id="profileNameChip">Applicant profile</span>
+          <span class="profile-chip" id="profileBusinessChip">Business overview</span>
+          <span class="profile-chip" id="profileFundingChip">Funding request</span>
+        </div>
+        <div class="profile-grid">
+          <div class="profile-item">
+            <div class="profile-label">Primary contact</div>
+            <div class="profile-value" id="profileContact">Not provided yet</div>
+          </div>
+          <div class="profile-item">
+            <div class="profile-label">Business</div>
+            <div class="profile-value" id="profileBusiness">Not provided yet</div>
+          </div>
+          <div class="profile-item">
+            <div class="profile-label">Target funding</div>
+            <div class="profile-value" id="profileFunding">Not provided yet</div>
+          </div>
+          <div class="profile-item">
+            <div class="profile-label">Credit snapshot</div>
+            <div class="profile-value" id="profileCredit">Not provided yet</div>
+          </div>
+        </div>
         <div class="summary-grid" id="summaryGrid"></div>
       </div>
 
@@ -357,7 +514,7 @@
         </div>
         <div class="doc-copy">Upload recent business bank statements. The most useful version is a PDF export directly from your bank.</div>
         <div class="upload-row">
-          <button class="upload-btn" type="button">Upload files</button>
+          <button class="upload-btn" type="button" data-open-upload="bank-statements">Upload files</button>
           <button class="secondary-btn" type="button">Skip for now</button>
           <span class="file-note">Last 3 to 6 months preferred</span>
         </div>
@@ -378,7 +535,7 @@
         </div>
         <div class="doc-copy">Upload your latest P&amp;L so the operating picture is easier to understand.</div>
         <div class="upload-row">
-          <button class="upload-btn" type="button">Upload files</button>
+          <button class="upload-btn" type="button" data-open-upload="profit-loss">Upload files</button>
           <button class="secondary-btn" type="button">Skip for now</button>
           <span class="file-note">Year-to-date is ideal</span>
         </div>
@@ -399,7 +556,7 @@
         </div>
         <div class="doc-copy">Upload a current balance sheet if you have one available.</div>
         <div class="upload-row">
-          <button class="upload-btn" type="button">Upload files</button>
+          <button class="upload-btn" type="button" data-open-upload="balance-sheet">Upload files</button>
           <button class="secondary-btn" type="button">Skip for now</button>
           <span class="file-note">Optional but helpful</span>
         </div>
@@ -420,7 +577,7 @@
         </div>
         <div class="doc-copy">Add anything else that gives useful context to the application.</div>
         <div class="upload-row">
-          <button class="upload-btn" type="button">Upload files</button>
+          <button class="upload-btn" type="button" data-open-upload="supporting-files">Upload files</button>
           <button class="secondary-btn" type="button">Skip for now</button>
           <span class="file-note">Only if relevant</span>
         </div>
@@ -432,6 +589,26 @@
       <div>Questions? Reach out to your Seamless contact.</div>
     </div>
   </div>
+
+
+  <dialog class="upload-dialog" id="uploadDialog" aria-labelledby="uploadDialogTitle">
+    <form method="dialog" class="dialog-shell">
+      <h3 class="dialog-title" id="uploadDialogTitle">Upload file</h3>
+      <p class="dialog-copy" id="uploadDialogCopy">Choose documents for your application packet.</p>
+      <div class="dialog-field">
+        <label for="uploadInput">Select files</label>
+        <input id="uploadInput" type="file" multiple />
+      </div>
+      <div class="dialog-field">
+        <label for="uploadNotes">Notes (optional)</label>
+        <textarea id="uploadNotes" placeholder="Add any context for your reviewer."></textarea>
+      </div>
+      <div class="dialog-actions">
+        <button class="secondary-btn" value="cancel">Cancel</button>
+        <button class="upload-btn" value="close">Add to application</button>
+      </div>
+    </form>
+  </dialog>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -451,6 +628,19 @@
     ].filter(([, value]) => value && value.trim());
 
     const summaryGrid = document.getElementById('summaryGrid');
+    const fullName = [params.get('first_name'), params.get('last_name')].filter(Boolean).join(' ').trim();
+    const businessName = params.get('business_name');
+    const fundingRange = params.get('funding_amount');
+    const creditScore = params.get('credit_score');
+    const email = params.get('email');
+
+    document.getElementById('profileContact').textContent = fullName || email || 'Not provided yet';
+    document.getElementById('profileBusiness').textContent = businessName || 'Not provided yet';
+    document.getElementById('profileFunding').textContent = fundingRange || 'Not provided yet';
+    document.getElementById('profileCredit').textContent = creditScore || 'Not provided yet';
+    document.getElementById('profileNameChip').textContent = fullName ? `Applicant: ${fullName}` : 'Applicant profile';
+    document.getElementById('profileBusinessChip').textContent = businessName ? `Business: ${businessName}` : 'Business overview';
+    document.getElementById('profileFundingChip').textContent = fundingRange ? `Funding: ${fundingRange}` : 'Funding request';
     if (fields.length) {
       fields.forEach(([label, value]) => {
         const card = document.createElement('div');
@@ -475,6 +665,39 @@
       if (!event.target.closest('.tooltip-wrap')) {
         document.querySelectorAll('.tooltip-wrap').forEach((node) => node.classList.remove('open'));
       }
+    });
+
+
+    const uploadDialog = document.getElementById('uploadDialog');
+    const uploadDialogTitle = document.getElementById('uploadDialogTitle');
+    const uploadDialogCopy = document.getElementById('uploadDialogCopy');
+    const uploadConfig = {
+      'bank-statements': {
+        title: 'Bank statements',
+        copy: 'Add your recent statements to strengthen cash flow visibility.'
+      },
+      'profit-loss': {
+        title: 'Profit & loss statement',
+        copy: 'Attach your latest P&L report for the underwriting snapshot.'
+      },
+      'balance-sheet': {
+        title: 'Balance sheet',
+        copy: 'Attach your latest balance sheet export if available.'
+      },
+      'supporting-files': {
+        title: 'Supporting files',
+        copy: 'Add contracts, invoices, tax returns, or any additional context.'
+      }
+    };
+
+    document.querySelectorAll('[data-open-upload]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const key = button.dataset.openUpload;
+        const config = uploadConfig[key] || { title: 'Upload files', copy: 'Attach files to your application.' };
+        uploadDialogTitle.textContent = config.title;
+        uploadDialogCopy.textContent = config.copy;
+        uploadDialog.showModal();
+      });
     });
   </script>
 </body>
