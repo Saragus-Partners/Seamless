@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seamless | Financing Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #2d2a26;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(142,166,139,0.16), transparent 26%),
+        radial-gradient(circle at 100% 18%, rgba(216,143,106,0.12), transparent 22%),
+        #f3efe7;
+      min-height: 100vh;
+      overflow-x: clip;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .shell {
+      width: min(calc(100% - 40px), 1220px);
+      margin: 0 auto;
+      padding: 18px 0 42px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255,250,244,0.82);
+      border: 1px solid rgba(45,42,38,0.08);
+      color: #2d2a26;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d88f6a;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      background: rgba(255,250,244,0.78);
+      border: 1px solid rgba(45,42,38,0.08);
+      box-shadow: 0 18px 36px rgba(45,42,38,0.05);
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    h1, h2 {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #2d2a26;
+      line-height: 0.98;
+    }
+
+    h1 { font-size: clamp(32px, 4vw, 54px); margin-bottom: 14px; }
+    h2 { font-size: clamp(24px, 2.4vw, 34px); margin-bottom: 18px; }
+
+    .subcopy {
+      color: #6b655d;
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 56ch;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .summary-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(45,42,38,0.06);
+    }
+
+    .summary-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b655d;
+      margin-bottom: 8px;
+    }
+
+    .summary-value {
+      color: #2d2a26;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .doc-card {
+      background: rgba(255,250,244,0.82);
+      border: 1px solid rgba(45,42,38,0.08);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 16px 30px rgba(45,42,38,0.04);
+    }
+
+    .doc-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 20px;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #2d2a26;
+      line-height: 1.05;
+    }
+
+    .doc-copy {
+      color: #6b655d;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      min-height: 66px;
+    }
+
+    .tooltip-wrap {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .tip-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(45,42,38,0.1);
+      background: rgba(255,255,255,0.9);
+      color: #2d2a26;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tooltip {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 10px);
+      width: 290px;
+      padding: 14px;
+      border-radius: 16px;
+      background: #fffaf4;
+      border: 1px solid rgba(45,42,38,0.08);
+      box-shadow: 0 16px 34px rgba(45,42,38,0.09);
+      color: #6b655d;
+      font-size: 13px;
+      line-height: 1.55;
+      display: none;
+      z-index: 10;
+    }
+
+    .tooltip strong {
+      display: block;
+      color: #2d2a26;
+      margin-bottom: 6px;
+    }
+
+    .tooltip-wrap.open .tooltip {
+      display: block;
+    }
+
+    .upload-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .upload-btn,
+    .secondary-btn {
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(45,42,38,0.08);
+      background: rgba(255,255,255,0.9);
+      color: #2d2a26;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .upload-btn {
+      background: linear-gradient(180deg, #d88f6a, #c7764c);
+      color: #fffaf7;
+      border: 0;
+    }
+
+    .file-note {
+      font-size: 12px;
+      color: #6b655d;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #2d2a26;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .check-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(142,166,139,0.18);
+      color: #8ea68b;
+      font-size: 13px;
+    }
+
+    .callout {
+      color: #6b655d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      padding-top: 28px;
+      margin-top: 28px;
+      border-top: 1px solid rgba(45,42,38,0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: #6b655d;
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .doc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(calc(100% - 20px), 1220px); }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .panel { padding: 18px; border-radius: 20px; }
+      .doc-title { font-size: 18px; }
+      .tooltip {
+        left: 0;
+        right: auto;
+        width: min(280px, calc(100vw - 48px));
+      }
+      .footer { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a href="#" aria-label="Seamless home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="139" height="35" viewBox="0 0 139 35" style="color: #2d2a26;"><g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1"><g transform="translate(0 0)"><path fill="currentColor" d="M51.939 23.156q-1.183 0-2.022-.416a4.8 4.8 0 0 1-1.423-1.053l1.3-1.313q.455.52 1.034.78.578.26 1.241.26.728 0 1.079-.299a.99.99 0 0 0 .351-.793q0-.247-.085-.448a.73.73 0 0 0-.312-.338q-.227-.137-.656-.189l-.897-.117q-.95-.13-1.566-.474a2.23 2.23 0 0 1-.917-.91q-.3-.566-.299-1.32 0-.819.41-1.437.41-.617 1.17-.968t1.826-.351q1.027 0 1.807.332.78.33 1.339.942l-1.313 1.326a2.6 2.6 0 0 0-.787-.618q-.46-.24-1.163-.24-.663 0-.988.234a.76.76 0 0 0-.325.65q0 .312.11.507t.352.299.617.169l.897.143q.936.143 1.547.481t.91.884.299 1.326q0 .87-.41 1.534-.409.663-1.202 1.04t-1.924.377"/><path fill="currentColor" d="M66.888 23h-6.175v-9.074h6.175v1.755h-4.199v1.859h3.601v1.742h-3.601v1.963h4.199z"/><path fill="currentColor" d="M79.848 23h-2.054l-.65-2.158h-3.029L73.465 23h-2.002l2.99-9.074h2.444zm-3.185-3.835-.559-1.885-.455-1.56h-.065l-.442 1.56-.559 1.885z"/><path fill="currentColor" d="M84.709 23v-9.074h2.093l1.209 2.314 1.014 1.937h.026l1.001-1.937 1.196-2.314h2.106V23h-1.859v-5.954h-.039l-.663 1.326-1.768 3.211-1.729-3.198-.689-1.43h-.039V23zm19.681 0h-5.434v-9.074h1.976v7.319h3.458zm11.231 0h-6.175v-9.074h6.175v1.755h-4.199v1.859h3.601v1.742h-3.601v1.963h4.199z"/><path fill="currentColor" d="M123.875 23.156q-1.184 0-2.022-.416a4.8 4.8 0 0 1-1.423-1.053l1.3-1.313q.455.52 1.033.78.579.26 1.242.26.728 0 1.079-.299a.99.99 0 0 0 .351-.793q0-.247-.085-.448a.73.73 0 0 0-.311-.338q-.228-.137-.657-.189l-.897-.117q-.95-.13-1.567-.474a2.23 2.23 0 0 1-.916-.91q-.3-.566-.299-1.32 0-.819.41-1.437.408-.617 1.17-.968.76-.351 1.826-.351 1.027 0 1.807.332.78.33 1.339.942l-1.313 1.326a2.6 2.6 0 0 0-.786-.618q-.462-.24-1.164-.24-.663 0-.988.234a.76.76 0 0 0-.325.65q0 .312.11.507t.352.299.617.169l.897.143q.936.143 1.547.481t.91.884.299 1.326q0 .87-.41 1.534-.409.663-1.202 1.04t-1.924.377m11.53 0q-1.183 0-2.022-.416a4.8 4.8 0 0 1-1.423-1.053l1.3-1.313q.455.52 1.034.78.578.26 1.241.26.728 0 1.079-.299a.99.99 0 0 0 .351-.793q0-.247-.084-.448a.73.73 0 0 0-.312-.338q-.228-.137-.657-.189l-.897-.117q-.95-.13-1.566-.474a2.23 2.23 0 0 1-.917-.91q-.3-.566-.299-1.32 0-.819.41-1.437.409-.617 1.17-.968t1.826-.351q1.027 0 1.807.332.78.33 1.339.942l-1.313 1.326a2.6 2.6 0 0 0-.787-.618q-.46-.24-1.163-.24-.663 0-.988.234a.76.76 0 0 0-.325.65q0 .312.11.507t.352.299.617.169l.897.143q.936.143 1.547.481t.91.884q.3.546.299 1.326 0 .87-.41 1.534-.409.663-1.202 1.04t-1.924.377"/><circle cx="17.5" cy="17.5" r="17" fill="#fffaf4" stroke="rgba(45,42,38,0.12)"/><path stroke="#d88f6a" stroke-linecap="square" stroke-width="3" d="M17.5 23.5v-12"/><circle cx="17.5" cy="17.5" r="8" stroke="#8ea68b"/></g></g></svg>
+      </a>
+      <div class="status-pill"><span class="status-dot"></span><span>Financing Hub Ready</span></div>
+    </div>
+
+    <section class="hero">
+      <div class="panel">
+        <h1>Your financing hub</h1>
+        <p class="subcopy">We’ve saved the details you already shared. Review them below, then upload the documents that help move your application forward faster.</p>
+        <div class="summary-grid" id="summaryGrid"></div>
+      </div>
+
+      <div class="side-stack">
+        <div class="panel">
+          <h2>What happens here</h2>
+          <div class="checklist">
+            <div class="check"><span class="check-mark">✓</span><span>Review your application summary</span></div>
+            <div class="check"><span class="check-mark">✓</span><span>Upload the strongest financial documents you have</span></div>
+            <div class="check"><span class="check-mark">✓</span><span>Use the tooltips to find the right files quickly</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Helpful note</h2>
+          <p class="callout">You do not need to have every file ready right away. Start with your most recent bank statements and your latest P&amp;L. Those two usually create the clearest first picture.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="doc-grid">
+      <article class="doc-card">
+        <div class="doc-top">
+          <div>
+            <div class="doc-title">Bank statements</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="tip-btn" type="button">?</button>
+            <div class="tooltip">
+              <strong>Where to find these</strong>
+              Log in to your bank account, open the business checking account, then look for Statements, Documents, or Account Services. At Chase this is often under “Statements &amp; documents.” At Bank of America look under “Statements &amp; documents” inside the account view. At Wells Fargo it is usually under “Statements &amp; notices.” Download the last 3 to 6 months as PDF.
+            </div>
+          </div>
+        </div>
+        <div class="doc-copy">Upload recent business bank statements. The most useful version is a PDF export directly from your bank.</div>
+        <div class="upload-row">
+          <button class="upload-btn" type="button">Upload files</button>
+          <button class="secondary-btn" type="button">Skip for now</button>
+          <span class="file-note">Last 3 to 6 months preferred</span>
+        </div>
+      </article>
+
+      <article class="doc-card">
+        <div class="doc-top">
+          <div>
+            <div class="doc-title">Profit &amp; loss statement</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="tip-btn" type="button">?</button>
+            <div class="tooltip">
+              <strong>Where to find this</strong>
+              In QuickBooks, go to Reports and search for Profit and Loss. In Xero, open Accounting, then Reports, then Profit and Loss. Export the most recent year-to-date view as PDF or Excel.
+            </div>
+          </div>
+        </div>
+        <div class="doc-copy">Upload your latest P&amp;L so the operating picture is easier to understand.</div>
+        <div class="upload-row">
+          <button class="upload-btn" type="button">Upload files</button>
+          <button class="secondary-btn" type="button">Skip for now</button>
+          <span class="file-note">Year-to-date is ideal</span>
+        </div>
+      </article>
+
+      <article class="doc-card">
+        <div class="doc-top">
+          <div>
+            <div class="doc-title">Balance sheet</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="tip-btn" type="button">?</button>
+            <div class="tooltip">
+              <strong>Where to find this</strong>
+              In QuickBooks or Xero, search reports for Balance Sheet. Export the most recent month-end version. If your accountant prepared one manually, that version works too.
+            </div>
+          </div>
+        </div>
+        <div class="doc-copy">Upload a current balance sheet if you have one available.</div>
+        <div class="upload-row">
+          <button class="upload-btn" type="button">Upload files</button>
+          <button class="secondary-btn" type="button">Skip for now</button>
+          <span class="file-note">Optional but helpful</span>
+        </div>
+      </article>
+
+      <article class="doc-card">
+        <div class="doc-top">
+          <div>
+            <div class="doc-title">Additional supporting files</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="tip-btn" type="button">?</button>
+            <div class="tooltip">
+              <strong>What can go here</strong>
+              Recent tax returns, merchant statements, AR aging reports, equipment quotes, contracts, or anything that explains why you need capital and how the business performs.
+            </div>
+          </div>
+        </div>
+        <div class="doc-copy">Add anything else that gives useful context to the application.</div>
+        <div class="upload-row">
+          <button class="upload-btn" type="button">Upload files</button>
+          <button class="secondary-btn" type="button">Skip for now</button>
+          <span class="file-note">Only if relevant</span>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer">
+      <div>© 2026 Seamless Capital. All rights reserved.</div>
+      <div>Questions? Reach out to your Seamless contact.</div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const fields = [
+      ['Business age', params.get('business_age')],
+      ['Entity type', params.get('entity_type')],
+      ['Funding range', params.get('funding_amount')],
+      ['Funding use', params.get('funding_reason')],
+      ['Annual revenue', params.get('annual_revenue')],
+      ['Credit', params.get('credit_score')],
+      ['Industry', params.get('industry')],
+      ['ZIP code', params.get('zip_code')],
+      ['Business name', params.get('business_name')],
+      ['First name', params.get('first_name')],
+      ['Last name', params.get('last_name')],
+      ['Email', params.get('email')]
+    ].filter(([, value]) => value && value.trim());
+
+    const summaryGrid = document.getElementById('summaryGrid');
+    if (fields.length) {
+      fields.forEach(([label, value]) => {
+        const card = document.createElement('div');
+        card.className = 'summary-card';
+        card.innerHTML = `<div class="summary-label">${label}</div><div class="summary-value">${value}</div>`;
+        summaryGrid.appendChild(card);
+      });
+    } else {
+      summaryGrid.innerHTML = `<div class="summary-card"><div class="summary-label">Application</div><div class="summary-value">Your summary will appear here once the form passes data into this page.</div></div>`;
+    }
+
+    document.querySelectorAll('.tip-btn').forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        const wrap = event.currentTarget.closest('.tooltip-wrap');
+        const isOpen = wrap.classList.contains('open');
+        document.querySelectorAll('.tooltip-wrap').forEach((node) => node.classList.remove('open'));
+        if (!isOpen) wrap.classList.add('open');
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.tooltip-wrap')) {
+        document.querySelectorAll('.tooltip-wrap').forEach((node) => node.classList.remove('open'));
+      }
+    });
+  </script>
+</body>
+</html>
